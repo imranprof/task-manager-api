@@ -6,7 +6,10 @@ import { TasksModule } from './tasks/tasks.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, TasksModule, ConfigModule.forRoot()],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }), 
+    AuthModule, 
+    TasksModule],
   controllers: [AppController],
   providers: [AppService],
 })
