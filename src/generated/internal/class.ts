@@ -33,6 +33,10 @@ const config: runtime.GetPrismaClientConfig = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -55,8 +59,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique\n  email     String   @unique\n  password  String\n  tasks     Task[]\n  createdAt DateTime @default(now())\n}\n\nmodel Task {\n  id          Int      @id @default(autoincrement())\n  title       String\n  description String\n  status      String   @default(\"todo\")\n  createdAt   DateTime @default(now())\n  userId      Int\n  user        User     @relation(fields: [userId], references: [id])\n}\n",
-  "inlineSchemaHash": "ac93ac9a354ae570c06a8365496fa66032c63271f1d83ce080a40c244153fd04",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n  output        = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique\n  email     String   @unique\n  password  String\n  tasks     Task[]\n  createdAt DateTime @default(now())\n}\n\nmodel Task {\n  id          Int      @id @default(autoincrement())\n  title       String\n  description String\n  status      String   @default(\"todo\")\n  createdAt   DateTime @default(now())\n  userId      Int\n  user        User     @relation(fields: [userId], references: [id])\n}\n",
+  "inlineSchemaHash": "62fd42b539839fde09154a65f72188fe7071611a9d1449140622caf18ab5a16e",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
