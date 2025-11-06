@@ -9,16 +9,26 @@ const prisma = new PrismaClient();
 export class AuthService {
   constructor(private jwtService: JwtService) {}
 
-  async signup(username: string, email: string, password: string) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
-      data: {username, email, password: hashedPassword},
-    });
-    return {id: user.id, username: user.username, email: user.email};
-  }
+async signup(username: string, email: string, password: string) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await prisma.user.create({
+    data: {
+      username,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+    },
+  });
+  return { id: user.id, username: user.username, email: user.email };
+}
 
   async login(email: string, password: string) {
-    const user = await prisma.user.findUnique({where: { email } });
+  const normalizedEmail = email.toLowerCase();
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email: normalizedEmail,
+    },
+  });
     if(!user) throw new Error('User not found');
 
     const isMatch = await bcrypt.compare(password, user.password);

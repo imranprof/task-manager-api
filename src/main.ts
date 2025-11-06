@@ -8,7 +8,7 @@ async function bootstrap() {
     // origin: ['http://localhost:3001', 'https://task-manager-frontend-mu-red.vercel.app'], //for production 
     origin: true, //for test
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true, //for cokies auth
+    // credentials: true, //for cokies auth
   });
   await app.listen(process.env.PORT ?? 3000);
 }
