@@ -5,8 +5,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
     app.enableCors({
-    origin: ['http://localhost:3001', 'https://task-manager-frontend-mu-red.vercel.app'], //for production 
-    // origin: true, //for test
+    // origin: ['http://localhost:3001', 'https://task-manager-frontend-mu-red.vercel.app'], //for production 
+    origin: true, //for test
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true, //for cokies auth
   });
